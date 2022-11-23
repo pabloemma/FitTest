@@ -1,0 +1,15 @@
+{
+    "IO" : {
+        "input_file"        : "solveig.csv",
+        "input_path"        : "/Users/klein/git/FitTest/data/",
+        "input_format"      : "csv",
+        "sheetname_in"      : "Sheet1",
+        "sheetname_out"      : "Sheet1",
+        "csv_delimeter_in"  : ",",
+        "csv_delimeter_out"  : ",",
+        "output_format"      : "csv",
+        "output_path"       : "/Users/klein,git/FitTest/data/",
+        "output_file"       : "data.out"
+
+    }
+}
