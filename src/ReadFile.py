@@ -32,7 +32,7 @@ class ReadFile(object):
 
 
 
-        #read configuartion file
+        #read configuration file
 
         if config_file == None:
             print('no config file given, exiting')
@@ -44,7 +44,12 @@ class ReadFile(object):
 
 
     
- 
+    def drop_my_colums(self):
+        "here we drop the colums and create a new data structure"
+        
+        self.new_data =  self.mydata.drop(columns = self.drop_columns)
+        self.pandas_info(self.new_data)
+        
     def header(self):
 
         version = '0.1' 
@@ -59,9 +64,9 @@ class ReadFile(object):
 
 
 
-    def pandas_info(self):
+    def pandas_info(self,data_frame):
         '''gives info on the current data'''
-        self.mydata.info(verbose = True)
+        data_frame.info(verbose = True)
 
 
 
@@ -99,6 +104,13 @@ class ReadFile(object):
             self.in_file           = input_path+input_file
     
 
+            #data block
+            drop_col                =myconf['DATA']['col']
+            # now spit the string into a list
+            self.drop_columns = list(drop_col.split(' '))
+            print(self.drop_columns)
+
+
         # check if input file exists:
         if not os.path.exists(self.in_file):
             self.print_error(1,self.in_file)
@@ -122,6 +134,9 @@ class ReadFile(object):
 
         #open input file
         self.mydata = pd.read_csv(self.in_file,self.csv_delimeter_in)
+        print('\n\n ******************************************\n')
+        self.pandas_info(self.mydata)
+        print('\n\n ******************************************\n')
         return
 
     def read_excel_file(self):
@@ -147,6 +162,7 @@ if __name__ == "__main__":
 
     RF = ReadFile(config_file=config_file)
     RF.read_file()
-    RF.pandas_info()
-
+    RF.drop_my_columns()
     
+
+
