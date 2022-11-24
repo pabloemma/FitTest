@@ -11,5 +11,8 @@
         "output_path"       : "/Users/klein,git/FitTest/data/",
         "output_file"       : "data.out"
 
+    },
+    "DATA" : {
+        "col"   :"gain lb oz diff_oz diff_gm per_day per_day_pound increment"
     }
 }

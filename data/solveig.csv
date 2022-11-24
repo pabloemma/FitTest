@@ -1,4 +1,4 @@
-date,weight [kg],gain,lb,oz,diff oz,diff gm,increment,per day,per day pund
+date,weight [kg],gain,lb,oz,diff_oz,diff_gm,increment,per_day,per_day_pound
 2.06.22,1.13,,2.51111111111111,39.85962,,,32.09934,,
 4.06.22,1.13,0,2.51111111111111,39.85962,0,,,,
 7.06.22,1.18,0.05,2.62222222222222,41.62332,1.7637,0.05,,,

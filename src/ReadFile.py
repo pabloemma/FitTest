@@ -16,7 +16,7 @@ class ReadFile(object):
 
 
      
-
+        
         # block for default values
 
         self.csv_delimeter_in       = ','
@@ -162,7 +162,7 @@ if __name__ == "__main__":
 
     RF = ReadFile(config_file=config_file)
     RF.read_file()
-    RF.drop_my_columns()
+    RF.drop_my_colums()
     
 
 
