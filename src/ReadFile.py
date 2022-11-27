@@ -4,6 +4,11 @@
 import pandas as pd
 import numpy as np
 import json as js
+import matplotlib.pyplot as plt
+
+from datetime import datetime
+
+import FitPlot as fp
 
 
 import sys
@@ -42,7 +47,8 @@ class ReadFile(object):
         else:
             print(" Config file does not exist, exiting     ", config_file)
 
-
+        # initialize the fitting
+        self.fpi = fp.FitPlot()
     
     def drop_my_colums(self):
         "here we drop the colums and create a new data structure"
@@ -57,6 +63,11 @@ class ReadFile(object):
         print('This is the FitTest program \n written by Andi Klein ')
         print('November 2022 \n \n')  
         print('version:  ', version) 
+
+    def fit_data(self):
+        self.fpi.pandas2numpy_nd(self.new_data)
+        self.fpi.fit_polynomial(self.new_data)
+        return
 
     def print_error(self,err_number,problem):
         print(self.error_list[err_number],'  ',problem)
@@ -132,8 +143,15 @@ class ReadFile(object):
 
     def read_csv_file(self):
 
+
+        #first deal with date in column 1 according to 
+        # https://stackoverflow.com/questions/17465045/can-pandas-automatically-read-dates-from-a-csv-file
+        dateparse = lambda x: datetime.strptime(x, '%y-%m-%d')
+
+
+        
         #open input file
-        self.mydata = pd.read_csv(self.in_file,self.csv_delimeter_in)
+        self.mydata = pd.read_csv(self.in_file,self.csv_delimeter_in,parse_dates=['date'], date_parser=dateparse)
         print('\n\n ******************************************\n')
         self.pandas_info(self.mydata)
         print('\n\n ******************************************\n')
@@ -163,6 +181,7 @@ if __name__ == "__main__":
     RF = ReadFile(config_file=config_file)
     RF.read_file()
     RF.drop_my_colums()
+    RF.fit_data()
     
 
 
