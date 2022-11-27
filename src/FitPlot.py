@@ -38,20 +38,23 @@ class FitPlot(object):
 
 
 
-    def fit_polynomial(self ,data_frame = None):
+    def fit_polynomial(self ,data_frame = None, deg = 1):
         "fits polynomial of nth degree to data frame"
         
         data_frame['date'] =  pd.to_numeric(data_frame.date) #neede for numpy to be happy
         
-        coefs = poly.polyfit(data_frame['date'],data_frame['weight_kg'], deg = 1)
+        coefs = poly.polyfit(data_frame['date'],data_frame['weight_kg'], deg = 2)
+        
         if(DEBUG): print("fit coefficiants",coefs)
         
         # get first and last elemnt in the date column
         window = [data_frame['date'].iloc[0],data_frame['date'].iloc[-1]]
         x_model = np.linspace(window[0], window[1], 200)
+        
         if(DEBUG): print(window)
+        
         ffit = poly.Polynomial(coefs)    # instead of np.poly1d
-        #ffit = poly.polyval(x_model,coefs)
+        
         if(DEBUG): print(data_frame['date'])
 
         # temporary: plot here

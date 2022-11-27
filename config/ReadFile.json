@@ -13,6 +13,7 @@
 
     },
     "DATA" : {
-        "col"   :"gain lb oz diff_oz diff_gm per_day per_day_pound increment"
+        "col"   :"gain lb oz diff_oz diff_gm per_day per_day_pound increment",
+        "fit_deg" : "1"
     }
 }

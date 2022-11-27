@@ -66,7 +66,7 @@ class ReadFile(object):
 
     def fit_data(self):
         self.fpi.pandas2numpy_nd(self.new_data)
-        self.fpi.fit_polynomial(self.new_data)
+        self.fpi.fit_polynomial(self.new_data,deg = self.fit_deg)
         return
 
     def print_error(self,err_number,problem):
@@ -118,7 +118,8 @@ class ReadFile(object):
             #data block
             drop_col                =myconf['DATA']['col']
             # now spit the string into a list
-            self.drop_columns = list(drop_col.split(' '))
+            self.drop_columns   = list(drop_col.split(' '))
+            self.fit_deg        = myconf['DATA']['fit_deg']
             print(self.drop_columns)
 
 
