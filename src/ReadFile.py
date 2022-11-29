@@ -147,7 +147,7 @@ class ReadFile(object):
 
         #first deal with date in column 1 according to 
         # https://stackoverflow.com/questions/17465045/can-pandas-automatically-read-dates-from-a-csv-file
-        dateparse = lambda x: datetime.strptime(x, '%y-%m-%d')
+        dateparse = lambda x: datetime.strptime(x, '%Y-%m-%d')
 
 
         
