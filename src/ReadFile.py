@@ -119,7 +119,7 @@ class ReadFile(object):
             drop_col                =myconf['DATA']['col']
             # now spit the string into a list
             self.drop_columns   = list(drop_col.split(' '))
-            self.fit_deg        = myconf['DATA']['fit_deg']
+            self.fit_deg        = int(myconf['DATA']['fit_deg'])
             print(self.drop_columns)
 
 

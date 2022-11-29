@@ -43,7 +43,7 @@ class FitPlot(object):
         
         data_frame['date'] =  pd.to_numeric(data_frame.date) #neede for numpy to be happy
         
-        coefs = poly.polyfit(data_frame['date'],data_frame['weight_kg'], deg = 2)
+        coefs = poly.polyfit(data_frame['date'],data_frame['weight_kg'], deg = deg)
         
         if(DEBUG): print("fit coefficiants",coefs)
         
