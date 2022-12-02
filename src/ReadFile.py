@@ -6,6 +6,9 @@ import numpy as np
 import json as js
 import matplotlib.pyplot as plt
 
+import odf #needed for ods read
+
+
 from datetime import datetime
 
 import FitPlot as fp
@@ -117,8 +120,9 @@ class ReadFile(object):
 
             #data block
             drop_col                =myconf['DATA']['col']
-            # now spit the string into a list
+            # now spit the string into a list, this will be the columns to drop
             self.drop_columns   = list(drop_col.split(' '))
+            #degree of fitting polynomial
             self.fit_deg        = int(myconf['DATA']['fit_deg'])
             print(self.drop_columns)
 
@@ -139,6 +143,8 @@ class ReadFile(object):
             self.read_csv_file()
         elif(self.input_format == 'xls'):
             self.read_excel_file()
+        elif(self.input_format == 'ods'):
+            self.read_ods_file()
         else:
             self.print_error(0,self.input_format)
 
@@ -159,9 +165,27 @@ class ReadFile(object):
         return
 
     def read_excel_file(self):
-        
+        dateparse = lambda x: datetime.strptime(x, '%Y-%m-%d')
         xlsx = pd.ExcelFile(self.in_file)
         self.mydata = pd.read_excel(xlsx,self.sheetname_in)
+
+
+    def read_ods_file(self):
+
+
+        #first deal with date in column 1 according to 
+        # https://stackoverflow.com/questions/17465045/can-pandas-automatically-read-dates-from-a-csv-file
+        #dateparse = lambda x: datetime.strptime(x, '%Y-%m-%d')
+        self.mydata = pd.read_excel(self.in_file, engine="odf")
+
+        
+        #open input file
+        print('\n\n ******************************************\n')
+        self.pandas_info(self.mydata)
+        print('\n\n ******************************************\n')
+        return
+
+
 
     def setup_error(self):
         '''block of errors'''

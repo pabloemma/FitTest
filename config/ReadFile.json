@@ -1,8 +1,8 @@
 {
     "IO" : {
-        "input_file"        : "solveig.csv",
+        "input_file"        : "solveig.ods",
         "input_path"        : "/Users/klein/git/FitTest/data/",
-        "input_format"      : "csv",
+        "input_format"      : "ods",
         "sheetname_in"      : "Sheet1",
         "sheetname_out"      : "Sheet1",
         "csv_delimeter_in"  : ",",
