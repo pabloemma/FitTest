@@ -58,6 +58,19 @@ class FitPlot(object):
         if(DEBUG): print(data_frame['date'])
 
         # temporary: plot here
+        #fig = plt.figure()
+        #ax = fig.add_subplot(1,1,1)
+ 
+        #ax.plot(data_frame['date'],data_frame['weight_kg'],color='green',marker = '*',linestyle ='None')
+ 
+        #ax.plot(x_model, ffit(x_model))
+        
+        #plt.show()
+        self.plot_fit(data_frame,x_model,ffit)
+        return 
+
+    def plot_fit(self,data_frame,x_model,ffit):
+
         fig = plt.figure()
         ax = fig.add_subplot(1,1,1)
  
