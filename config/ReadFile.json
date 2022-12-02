@@ -14,6 +14,8 @@
     },
     "DATA" : {
         "col"   :"gain lb oz diff_oz diff_gm per_day per_day_pound increment",
+        "parse_col" : "date",
+        "time_format" : "%Y-%m-%d",
         "fit_deg" : "3"
     }
 }

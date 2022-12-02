@@ -124,6 +124,8 @@ class ReadFile(object):
             self.drop_columns   = list(drop_col.split(' '))
             #degree of fitting polynomial
             self.fit_deg        = int(myconf['DATA']['fit_deg'])
+            self.parse_col   = myconf['DATA']['parse_col'] # the column for the data parser for the dates
+            self.time_format = myconf['DATA']['time_format']
             print(self.drop_columns)
 
 
@@ -158,14 +160,14 @@ class ReadFile(object):
 
         
         #open input file
-        self.mydata = pd.read_csv(self.in_file,self.csv_delimeter_in,parse_dates=['date'], date_parser=dateparse)
+        self.mydata = pd.read_csv(self.in_file,self.csv_delimeter_in,parse_dates=[self.parse_col], date_parser=dateparse)
         print('\n\n ******************************************\n')
         self.pandas_info(self.mydata)
         print('\n\n ******************************************\n')
         return
 
     def read_excel_file(self):
-        dateparse = lambda x: datetime.strptime(x, '%Y-%m-%d')
+        dateparse = lambda x: datetime.strptime(x, self.time_format)
         xlsx = pd.ExcelFile(self.in_file)
         self.mydata = pd.read_excel(xlsx,self.sheetname_in)
 
