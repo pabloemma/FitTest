@@ -1,3 +1,12 @@
+'''
+Filename: /Users/klein/git/FitTest/src/ReadFile.py
+Path: /Users/klein/git/FitTest/src
+Created Date: Monday, November 21st 2022, 4:23:44 pm
+Author: Andi Klein
+
+Copyright (c) 2022 andi klein
+'''
+
 # a common file read class for pandas
 
 
@@ -51,7 +60,7 @@ class ReadFile(object):
             print(" Config file does not exist, exiting     ", config_file)
 
         # initialize the fitting
-        self.fpi = fp.FitPlot()
+        self.fpi = fp.FitPlot(self.data_x,self.data_y,legend_1=self.legend_1,legend_2=self.legend_2,title = self.plot_title)
     
     def drop_my_colums(self):
         "here we drop the colums and create a new data structure"
@@ -66,6 +75,9 @@ class ReadFile(object):
         print('This is the FitTest program \n written by Andi Klein ')
         print('November 2022 \n \n')  
         print('version:  ', version) 
+        self.print_star = '*'* 80
+        self.print_star = '\n'+self.print_star+'\n'
+        print(self.print_star)
 
     def fit_data(self):
         self.fpi.pandas2numpy_nd(self.new_data)
@@ -126,8 +138,16 @@ class ReadFile(object):
             self.fit_deg        = int(myconf['DATA']['fit_deg'])
             self.parse_col   = myconf['DATA']['parse_col'] # the column for the data parser for the dates
             self.time_format = myconf['DATA']['time_format']
+            self.data_x = myconf['DATA']['data_x']
+            self.data_y = myconf['DATA']['data_y']
             print(self.drop_columns)
 
+            #plot block
+
+            self.legend_1 = myconf['PLOT']['legend_1']
+            self.legend_2 = myconf['PLOT']['legend_2']
+            self.plot_title = myconf['PLOT']['Title']
+            
 
         # check if input file exists:
         if not os.path.exists(self.in_file):
@@ -161,9 +181,12 @@ class ReadFile(object):
         
         #open input file
         self.mydata = pd.read_csv(self.in_file,self.csv_delimeter_in,parse_dates=[self.parse_col], date_parser=dateparse)
-        print('\n\n ******************************************\n')
+        
+        print(self.print_star)
+
         self.pandas_info(self.mydata)
-        print('\n\n ******************************************\n')
+        print(self.print_star)
+       
         return
 
     def read_excel_file(self):
@@ -182,9 +205,9 @@ class ReadFile(object):
 
         
         #open input file
-        print('\n\n ******************************************\n')
+        print(self.print_star)
         self.pandas_info(self.mydata)
-        print('\n\n ******************************************\n')
+        print(self.print_star)
         return
 
 

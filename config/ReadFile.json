@@ -16,6 +16,14 @@
         "col"   :"gain lb oz diff_oz diff_gm per_day per_day_pound increment",
         "parse_col" : "date",
         "time_format" : "%Y-%m-%d",
-        "fit_deg" : "3"
+        "data_x"    : "date",
+        "data_y"    : "weight_kg",
+        "fit_deg" : "2"
+    },
+    "PLOT" : {
+        "legend_1"  : "Data",
+        "legend_2" : "Fit",
+        "Title" :"Solveig weight"
     }
+
 }
