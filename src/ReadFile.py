@@ -14,6 +14,8 @@ import pandas as pd
 import numpy as np
 import json as js
 import matplotlib.pyplot as plt
+import ROOT as ro
+
 
 import odf #needed for ods read
 
@@ -175,8 +177,8 @@ class ReadFile(object):
 
         #first deal with date in column 1 according to 
         # https://stackoverflow.com/questions/17465045/can-pandas-automatically-read-dates-from-a-csv-file
-        dateparse = lambda x: datetime.strptime(x, '%Y-%m-%d')
-
+        dateparse = lambda x: datetime.strptime(x, self.time_format)
+        print('datetime',dateparse)
 
         
         #open input file
@@ -200,9 +202,8 @@ class ReadFile(object):
 
         #first deal with date in column 1 according to 
         # https://stackoverflow.com/questions/17465045/can-pandas-automatically-read-dates-from-a-csv-file
-        #dateparse = lambda x: datetime.strptime(x, '%Y-%m-%d')
         self.mydata = pd.read_excel(self.in_file, engine="odf")
-
+        self.mydata[self.data_x] = pd.to_datetime(self.mydata[self.data_x], infer_datetime_format=True)
         
         #open input file
         print(self.print_star)

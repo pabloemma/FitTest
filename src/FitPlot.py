@@ -4,6 +4,7 @@ import numpy.polynomial.polynomial as poly
 import json as js
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+import ROOT as ro
 
 import sys
 import os
@@ -47,7 +48,7 @@ class FitPlot(object):
     def fit_polynomial(self ,data_frame = None, deg = 1):
         "fits polynomial of nth degree to data frame"
         
-        data_frame[self.data_x] =  pd.to_numeric(data_frame.date) #neede for numpy to be happy
+        data_frame[self.data_x] =  pd.to_numeric(data_frame[self.data_x]) #neede for numpy to be happy
         
         coefs = poly.polyfit(data_frame[self.data_x],data_frame[self.data_y], deg = deg)
         
@@ -74,6 +75,7 @@ class FitPlot(object):
         
         #plt.show()
         self.plot_fit(data_frame,x_model,ffit)
+        #self.root_plot(data_frame,x_model,ffit)
         return 
 
     def plot_fit(self,data_frame,x_model,ffit):
@@ -81,11 +83,44 @@ class FitPlot(object):
         fig = plt.figure()
         ax = fig.add_subplot(1,1,1)
  
-        ax.plot(data_frame['date'],data_frame['weight_kg'],color='green',marker = '*',linestyle ='None')
+        ax.plot(data_frame[self.data_x],data_frame[self.data_y],color='green',marker = '*',linestyle ='None')
  
         ax.plot(x_model, ffit(x_model))
         ax.legend([self.legend_1,self.legend_2])
         ax.set_title(self.plot_title)
         
         plt.show()
+        self.root_plot(data_frame,x_model,ffit)
         return 
+
+    def root_plot(self,data_frame,x_model,ffit):
+
+        c1 = ro.TCanvas("solveig")
+        #c1.SetFillColor( 42 )
+        c1.SetGrid()
+        c1.cd()
+
+        #c1.Draw()
+        # now create a TGraph
+        # extracting dataframe into two numpy arrays
+        arr0 = data_frame[self.data_x].to_numpy()
+        arr1 = arr0.astype(np.float64)
+        
+        arr2 = data_frame[self.data_y].to_numpy()
+        print(arr1.size,arr1.dtype,arr2.dtype)
+        gr1 = ro.TGraph(arr1.size,arr1,arr2)
+        gr1.Fit('pol2')
+        gr1.SetMarkerSize(2.5)
+        gr1.SetMarkerColor(4)
+        gr1.Draw('AP*')
+        c1.Update()
+        
+        #c1.GetFrame().SetFillColor( 21 )
+        #c1.GetFrame().SetBorderSize( 12 )
+        #c1.Modified()
+        #c1.Update()
+
+        val = input("Enter your value: ")
+        return
+
+        #histo1 = ro.TH1D(histo1,'solveig',50,data_frame[self.data_x.loc(0),data_frame[self.data_x.loc(-1)])
