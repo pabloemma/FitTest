@@ -109,18 +109,23 @@ class FitPlot(object):
         arr2 = data_frame[self.data_y].to_numpy()
         print(arr1.size,arr1.dtype,arr2.dtype)
         gr1 = ro.TGraph(arr1.size,arr1,arr2)
-        gr1.Fit('pol2')
+        gr1.Fit('pol3')
         gr1.SetMarkerSize(2.5)
         gr1.SetMarkerColor(4)
         gr1.Draw('AP*')
         c1.Update()
         
-        #c1.GetFrame().SetFillColor( 21 )
-        #c1.GetFrame().SetBorderSize( 12 )
-        #c1.Modified()
-        #c1.Update()
+        c1.GetFrame().SetFillColor( 21 )
+        c1.GetFrame().SetBorderSize( 12 )
+        c1.Modified()
+        c1.Update()
 
-        val = input("Enter your value: ")
+        #The application will then close if you choose “Quit ROOT” from the canvas (but not if you only close the canvas itself).
+
+        ro.gApplication.Run() #to have keep take over the windows and not dsappear
+
+
+        #val = input("Enter your value: ")
         return
 
         #histo1 = ro.TH1D(histo1,'solveig',50,data_frame[self.data_x.loc(0),data_frame[self.data_x.loc(-1)])
